@@ -2,13 +2,13 @@
 
 import time
 from configuration import loadConfiguration, settings
-from simpa.subscribers import getSubscribers
-from simpa.mod import HackyMod
+from sympa.subscribers import getSubscribers
+from sympa.mod import HackyMod
 
 def main():
     loadConfiguration('./settings.json')
     users = getSubscribers(settings['subscribersFile'])
-    mod = HackyMod(users=users, simpaEmail=settings['simpaEmail'],
+    mod = HackyMod(users=users, sympaEmail=settings['sympaEmail'],
         moderatorEmail=settings['moderatorEmail'],
         moderatorPassword=settings['moderatorPassword'])
 

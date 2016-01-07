@@ -1,9 +1,9 @@
 
 class HackyMod:
-    def __init__(self, users=[], simpaEmail=None, moderatorEmail=None,
+    def __init__(self, users=[], sympaEmail=None, moderatorEmail=None,
                 moderatorPassword=None):
         self.users = users
-        self.simpaEmail = simpaEmail
+        self.sympaEmail = sympaEmail
         self.moderatorEmail = moderatorEmail
         self.moderatorPassword = moderatorPassword
 

@@ -1,10 +1,10 @@
-from simpa.utils import getFileContent
+from sympa.utils import getFileContent
 import json
 
 settings = {
     'subscribersFile': './subscribers.json',
     'logFile': './hackymod.log',
-    'simpaEmail': None,
+    'sympaEmail': None,
     'imapSSLServer': None,
     'imapSSLPort': None,
     'moderatorEmail': None,
