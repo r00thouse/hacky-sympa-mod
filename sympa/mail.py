@@ -38,7 +38,7 @@ that will distribute <email>'s message to the whole list
 print 'connecting...'
 M = imaplib.IMAP4_SSL(host='imap.openmailbox.org')
 print 'loggin in'
-M.login('carlitosfoobar@openmailbox.org', 'carlitospassword')
+M.login('email', 'password')
 
 
 print 'SELECT'
