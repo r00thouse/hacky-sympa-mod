@@ -1,0 +1,6 @@
+{
+    "subscribersFile": "./subscribers.json",
+    "logFile": "./hacky.log",
+    "moderatorEmail": "foobar@foobar.com",
+    "moderatorPassword": "password"
+}
