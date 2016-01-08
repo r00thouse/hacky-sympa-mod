@@ -8,9 +8,12 @@ from sympa.mod import HackyMod
 def main():
     loadConfiguration('./settings.json')
     users = getSubscribers(settings['subscribersFile'])
-    mod = HackyMod(users=users, sympaEmail=settings['sympaEmail'],
+    mod = HackyMod(users=users, listName=settings['listName'],
+        sympaEmail=settings['sympaEmail'],
         moderatorEmail=settings['moderatorEmail'],
-        moderatorPassword=settings['moderatorPassword'])
+        moderatorPassword=settings['moderatorPassword'],
+        imapSSLServer=settings['imapSSLServer'],
+        imapSSLPort=settings['imapSSLPort'])
 
     while True:
         mod.moderate()

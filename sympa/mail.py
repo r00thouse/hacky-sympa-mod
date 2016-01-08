@@ -2,76 +2,80 @@ import imaplib
 import email
 import email.header
 
+def sendEmail(to, subject, email, password, smtpServer, smtpPort):
+    pass
+
 """
-TODO:
-make a method to get all emails from an email (the riseup email
-that most of the time will be r00thouse-request@lists.riseup.net)
-analize the format of this email:
-
-One new message for list r00thouse from serguimant@openmailbox.org arrived.
-
-5 messages are awaiting moderation.
-To view the messages, please click on the following URL:
-<https://lists.riseup.net/www/ticket/18326481916985>
-
-To distribute the attached message in list r00thouse:
-<mailto:sympa@lists.riseup.net?subject=DISTRIBUTE%20r00thouse%20227d40889a2c5af57ee4a6541f9e4191>
-Or send a message to sympa@lists.riseup.net with the following subject:
-DISTRIBUTE r00thouse 227d40889a2c5af57ee4a6541f9e4191
-
-To reject it (it will be removed):
-<mailto:sympa@lists.riseup.net?subject=REJECT%20r00thouse%20227d40889a2c5af57ee4a6541f9e4191>
-Or send a message to sympa@lists.riseup.net with the following subject:
-REJECT r00thouse 227d40889a2c5af57ee4a6541f9e4191
-
-KEY PARTS
-list <listName> from <email> arrived
-
-DISTRIBUTE <listName> <someCode>
-
-So if <email> is subscribed and it's not in the black list
-send an email to sympa@lists.riseup.net with the given subject
-DISTRIBUTE <listName> <someCode>
-that will distribute <email>'s message to the whole list
+How to parse headers from raw email thanks to
+https://gist.github.com/robulouski/7441883
+Read IMAP4 RFC
 """
+def getEmailsFromUser(fromEmail, email, password, imapServer, imapPort):
+    result = []
 
-print 'connecting...'
-M = imaplib.IMAP4_SSL(host='imap.openmailbox.org')
-print 'loggin in'
-M.login('email', 'password')
+    M = imaplib.IMAP4_SSL(host=imapServer, port=imapPort)
+    rv, data = M.login(email, password)
+    if rv != 'OK':
+        pass # handle error
 
+    rv, data = M.select() # Selects default mailbox: inbox
+    if rv != 'OK':
+        pass
 
-print 'SELECT'
-rv, data = M.select()
-print rv, data
+    rv, data = M.search(None, 'UNSEEN') # get emails with the unseen flag
+    if rv != 'OK':
+        pass
 
-print 'SEARCH'
-rv, data = M.search(None, 'UNSEEN')
-print rv, data
+    for number in data[0].split():
+        rv, data = M.fetch(number, '(RFC822)')
+        if rv != 'OK':
+            pass
 
-print 'reading emails...'
-for number in data[0].split():
-    print 'FETCH %s' % number
-    # gets the full message
-    rv, data = M.fetch(number, '(RFC822)')
-    print rv
+        # parsing email
+        msg = email.message_from_string(data[0][1])
+        subject = email.header.decode_header(msg['Subject'])[0]
+        subject = unicode(subject[0])
+        sender = email['From']
+        content = ''
+        if msg.is_multipart():
+            for payload in msg.get_payload():
+                content += payload.get_payload()
+                content += '\n'
+        else:
+            content = msg.get_payload()
 
-    print 'parsing email'
-    msg = email.message_from_string(data[0][1])
+        if sender.find(fromEmail) != -1:
+            result.append({
+                'subject': subject,
+                'from': sender,
+                'content': content
+            })
+    M.logout()
 
-    subject = email.header.decode_header(msg['Subject'])[0]
-    subject = unicode(subject[0])
-    print 'Subject:', subject
-    print 'From:', msg['From']
-    print 'Content:'
-    if msg.is_multipart():
-        print 'it is multipart'
-        for payload in msg.get_payload():
-            print payload.get_payload()
-    else:
-        print msg.get_payload()
+    return result
 
-print 'loggin out'
-M.logout()
+def getModerationData(emailContent='', listName=''):
+    pattern1 = 'list %s from' % listName
+    pattern2 = 'DISTRIBUTE %s' % listName
 
-print 'done'
+    senderEmail = ''
+    index = emailContent.find(pattern1)
+    if index == -1:
+        pass # throw error of invalid format
+
+    index += len(pattern1) + 1
+    while emailContent[index] != ' ' || emailContent[index] != '\r' || emailContent[index] != '\n':
+        senderEmail += emailContent[index]
+        index += 1
+
+    moderationCode = ''
+    index  = emailContent.find(pattern2)
+    if index == -1:
+        pass # throw error of invalid format
+
+    index += len(pattern2) + 1
+    while emailContent[index] != ' ' || emailContent[index] != '\r' || emailContent[index] != '\n':
+        moderationCode += emailContent[index]
+        index += 1
+
+    return senderEmail, moderationCode

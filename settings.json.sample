@@ -1,6 +1,7 @@
 {
     "subscribersFile": "./subscribers.json",
     "logFile": "./hacky.log",
+    "listName": "alistnamecasesensitive",
     "sympaEmail": "algunalista-request@lists.riseup.net",
     "imapSSLServer": "imap.openmailbox.org",
     "imapSSLPort": 993,
