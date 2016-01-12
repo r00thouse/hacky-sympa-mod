@@ -4,6 +4,7 @@ import json
 settings = {
     'subscribersFile': './subscribers.json',
     'listName': None,
+    'debug': False,
     'logFile': './hackymod.log',
     'sympaEmail': None,
     'imapSSLServer': None,

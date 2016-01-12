@@ -1,7 +1,7 @@
 [
     {
         "email": "foobar@foobar.com",
-        "moderated": true,
+        "moderated": true
     },
     {
         "email": "another@foobar.com",
