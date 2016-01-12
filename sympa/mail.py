@@ -10,11 +10,11 @@ How to parse headers from raw email thanks to
 https://gist.github.com/robulouski/7441883
 Read IMAP4 RFC
 """
-def getEmailsFromUser(fromEmail, email, password, imapServer, imapPort):
+def getEmailsFromUser(fromEmail, userEmail, password, imapServer, imapPort):
     result = []
 
     M = imaplib.IMAP4_SSL(host=imapServer, port=imapPort)
-    rv, data = M.login(email, password)
+    rv, data = M.login(userEmail, password)
     if rv != 'OK':
         pass # handle error
 
@@ -35,7 +35,7 @@ def getEmailsFromUser(fromEmail, email, password, imapServer, imapPort):
         msg = email.message_from_string(data[0][1])
         subject = email.header.decode_header(msg['Subject'])[0]
         subject = unicode(subject[0])
-        sender = email['From']
+        sender = msg['From']
         content = ''
         if msg.is_multipart():
             for payload in msg.get_payload():
