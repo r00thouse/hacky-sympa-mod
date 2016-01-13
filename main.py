@@ -11,12 +11,16 @@ def main():
     initLogs(settings['logFile'], debug=settings['debug'])
 
     users = getSubscribers(settings['subscribersFile'])
-    mod = HackyMod(users=users, listName=settings['listName'],
-        sympaEmail=settings['sympaEmail'],
+    mod = HackyMod(users=users,
+        blacklist=[],
+        listName=settings['listName'],
+        listContactEmail=settings['listContactEmail'],
         moderatorEmail=settings['moderatorEmail'],
         moderatorPassword=settings['moderatorPassword'],
         imapSSLServer=settings['imapSSLServer'],
-        imapSSLPort=settings['imapSSLPort'])
+        imapSSLPort=settings['imapSSLPort'],
+        smtpServer=settings['smtpServer'],
+        smtpPort=settings['smtpPort'])
 
     while True:
         print('Starting moderation')

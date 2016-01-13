@@ -6,9 +6,12 @@ settings = {
     'listName': None,
     'debug': False,
     'logFile': './hackymod.log',
-    'sympaEmail': None,
+    'listContactEmail': None,
+    'sympaCommandEmail': None,
     'imapSSLServer': None,
     'imapSSLPort': None,
+    'smtpServer': None,
+    'smtpPort': None,
     'moderatorEmail': None,
     'moderatorPassword': None,
 }
@@ -18,5 +21,5 @@ def loadConfiguration(filename):
     settingsKeys = settings.keys()
 
     for key in settingsKeys:
-        if content.has_key(key):
+        if content.get(key):
             settings[key] = content[key]

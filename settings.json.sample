@@ -3,9 +3,12 @@
     "logFile": "./hacky.log",
     "debug": false,
     "listName": "alistnamecasesensitive",
-    "sympaEmail": "algunalista-request@lists.riseup.net",
+    "listContactEmail": "algunalista-request@lists.riseup.net",
+    "sympaCommandEmail": "sympa@lists.riseup.net",
     "imapSSLServer": "imap.openmailbox.org",
     "imapSSLPort": 993,
+    "smptServer": "None",
+    "smtpPort": 25,
     "moderatorEmail": "foobar@foobar.com",
     "moderatorPassword": "password"
 }
