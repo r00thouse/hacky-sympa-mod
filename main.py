@@ -10,9 +10,11 @@ def main():
     loadConfiguration('./settings.json')
     initLogs(settings['logFile'], debug=settings['debug'])
 
+
     users = getSubscribers(settings['subscribersFile'])
     mod = HackyMod(users=users,
-        blacklist=[],
+#        blacklist=[],
+        blacklistFile=['blacklistFile'],
         listName=settings['listName'],
         listContactEmail=settings['listContactEmail'],
         moderatorEmail=settings['moderatorEmail'],
@@ -26,7 +28,7 @@ def main():
         print('Starting moderation')
         mod.moderate()
         # get emails, parse and moderate them every X minutes
-        time.sleep(3)
+        time.sleep(120) # cada 2 minutos
 
 if __name__ == '__main__':
     main()

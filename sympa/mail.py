@@ -79,6 +79,14 @@ def concatenateMultipartEmail(emailMessage):
     return content
 
 def getModerationData(emailContent='', listName='', senderEmail=''):
+
+    # agregado para probrar
+    print('######################################')
+    print('##### Message body from %s ######' % senderEmail)
+    print(' %s ' % emailContent)
+    print('###### END OF BODY####################')
+    # ---
+
     MODERATION_CODE_PATTERN = 'DISTRIBUTE %s' % listName
 
     senderEmail = ''

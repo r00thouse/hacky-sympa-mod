@@ -23,6 +23,7 @@ The settings values that need to be set on settings.json file are:
 * imapSSLPort (integer) - IMAP server port
 * smptServer (string) - In order to send emails, it's necessary to connect to the moderator's email provider SMTP server
 * smtpPort (integer) - SMTP server port
+* blacklistFile (string) - Name of the text file containing emails in the black list (one email per line)
 
 ##How it works
 

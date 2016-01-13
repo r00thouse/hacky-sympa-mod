@@ -4,12 +4,12 @@ from .mail import getEmailsFromUser, getModerationData, sendEmail
 EMAIL_SIMPLE_REGEX = '[\w\.-]+@[\w\.-]+'
 
 class HackyMod:
-    def __init__(self, listName='', users=[], blacklist=[], listContactEmail=None,
+    def __init__(self, listName='', users=[], blacklistFile=[], listContactEmail=None,
             moderatorEmail=None, moderatorPassword=None, imapSSLServer=None,
             imapSSLPort=993, smtpServer=None, smtpPort=0):
         self.listName = listName
         self.users = users
-        self.blacklist = blacklist
+        self.blacklistFile = blacklistFile
         self.listContactEmail = listContactEmail
         self.moderatorEmail = moderatorEmail
         self.moderatorPassword = moderatorPassword
@@ -32,7 +32,11 @@ class HackyMod:
         return False
 
     def __isUserInBlackList(self, email):
-        blacklist = self.blacklist
+        #blacklist = self.blacklist
+        # Added a blacklist file (testing)
+        blf = open(self.blacklistFile, 'r')
+        blacklist = blf.reeadlines()
+
         for usr in blacklist:
             if usr == email:
                 return True
@@ -52,6 +56,7 @@ class HackyMod:
                 continue
 
             print('Moderating message from %s' % senderEmail)
+
             moderationCode = getModerationData(email['content'], self.listName, senderEmail)
             if not moderationCode:
                 print('Email with invalid format')

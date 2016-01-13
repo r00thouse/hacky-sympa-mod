@@ -10,5 +10,6 @@
     "smptServer": "None",
     "smtpPort": 25,
     "moderatorEmail": "foobar@foobar.com",
-    "moderatorPassword": "password"
+    "moderatorPassword": "password",
+    "blacklistFile": "blacklist.txt"
 }
