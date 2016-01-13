@@ -3,7 +3,7 @@
 echo "[+] Creating settings files"
 cp settings.json.sample settings.json
 cp subscribers.json.sample subscribers.json
-cp listanegra.txt.sample listanegra.txt
+cp blacklist.txt.sample blacklist.txt
 
 echo "[OK] Files created"
 echo "  [-] Put your settings on settings.json"
