@@ -1,5 +1,6 @@
 import re
 from .mail import getEmailsFromUser, getModerationData, sendEmail
+from .utils import getFileLines
 
 EMAIL_SIMPLE_REGEX = '[\w\.-]+@[\w\.-]+'
 
@@ -33,13 +34,9 @@ class HackyMod:
 
     def __isUserInBlackList(self, email):
         # Added a blacklist file (testing)
-        blf = open(self.blacklistFile, 'r')
-        blacklist = blf.readlines()
+        blacklist = getFileLines(self.blacklistFile, removeEOL=True)
 
         for usr in blacklist:
-            # cleaning newline characters
-            usr = usr.replace('\n', '')
-            usr = usr.replace('\r', '')
             if usr == email:
                 return True
         return False
@@ -66,9 +63,9 @@ class HackyMod:
 
             print('Email has moderation code %s' % moderationCode)
             if self.__isGoodUser(senderEmail):
-                print('%s is not on the blacklist :D, distributing.' % senderEmail)
+                print('%s is not on the blacklist :D, distributing.\n' % senderEmail)
                 subject = 'DISTRIBUTE % s %s' % (self.listName, moderationCode)
                 # sendEmail(self.sympaDistributeEmail, subject)
             else:
-                print('%s is not a good user the message has to be moderated manually' % senderEmail)
+                print('%s is not a good user the message has to be moderated manually\n' % senderEmail)
 
