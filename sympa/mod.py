@@ -32,12 +32,14 @@ class HackyMod:
         return False
 
     def __isUserInBlackList(self, email):
-        #blacklist = self.blacklist
         # Added a blacklist file (testing)
         blf = open(self.blacklistFile, 'r')
-        blacklist = blf.reeadlines()
+        blacklist = blf.readlines()
 
         for usr in blacklist:
+            # cleaning newline characters
+            usr = usr.replace('\n', '')
+            usr = usr.replace('\r', '')
             if usr == email:
                 return True
         return False

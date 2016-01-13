@@ -56,9 +56,9 @@ def getEmailsFromUser(fromEmail, userEmail, password, imapServer, imapPort):
 
         content = content.decode('utf-8')
         if sender.find(fromEmail) != -1:
-            print("""Subject: %s
-                From: %s
-                """ % (subject, sender))
+            print('     Subject: %s' % subject)
+            print('     From: %s' % sender)
+
             result.append({
                 'subject': subject,
                 'from': sender,
@@ -80,12 +80,10 @@ def concatenateMultipartEmail(emailMessage):
 
 def getModerationData(emailContent='', listName='', senderEmail=''):
 
-    # agregado para probrar
-    print('######################################')
-    print('##### Message body from %s ######' % senderEmail)
-    print(' %s ' % emailContent)
-    print('###### END OF BODY####################')
-    # ---
+    # print('######################################')
+    # print('##### Message body from %s ######' % senderEmail)
+    # print(' %s ' % emailContent)
+    # print('###### END OF BODY####################')
 
     MODERATION_CODE_PATTERN = 'DISTRIBUTE %s' % listName
 

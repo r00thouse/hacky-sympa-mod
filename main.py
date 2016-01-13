@@ -10,11 +10,10 @@ def main():
     loadConfiguration('./settings.json')
     initLogs(settings['logFile'], debug=settings['debug'])
 
-
     users = getSubscribers(settings['subscribersFile'])
+
     mod = HackyMod(users=users,
-#        blacklist=[],
-        blacklistFile=['blacklistFile'],
+        blacklistFile=settings['blacklistFile'],
         listName=settings['listName'],
         listContactEmail=settings['listContactEmail'],
         moderatorEmail=settings['moderatorEmail'],

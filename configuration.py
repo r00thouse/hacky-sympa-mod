@@ -4,6 +4,7 @@ import json
 settings = {
     'subscribersFile': './subscribers.json',
     'listName': None,
+    'blacklistFile': './blacklist.txt',
     'debug': False,
     'logFile': './hackymod.log',
     'listContactEmail': None,
