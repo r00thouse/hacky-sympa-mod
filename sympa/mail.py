@@ -90,11 +90,13 @@ def getModerationData(emailContent='', listName='', senderEmail=''):
     senderEmail = ''
     index = emailContent.find(senderEmail)
     if index == -1:
+        print 'Not found sender email %s' % senderEmail
         return None
 
     moderationCode = ''
     index  = emailContent.find(MODERATION_CODE_PATTERN)
     if index == -1:
+        print 'Not found moderation code'
         return None
 
     index += len(MODERATION_CODE_PATTERN) + 1

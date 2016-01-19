@@ -1,13 +1,24 @@
 Hacky Sympa Mod
 ===============
 
-##Create settings files
+This python script can help, it reads a blacklist.txt file that contains emails that need to be hold for moderation even if an email comes from someone already subscribed in the list.
+
+The script checks if the incomming messages to a mailing list. If the incomming message's author comes from an in email that is in the **blacklist.txt** file the script will left moderators to aprove the message.
+
+If the email comes from an email that is not in the blacklist.txt file and the email belongs to someone subscribed in the mailing list, the script will DISTRIBUTE the message.
+
+The script is designed to keep a **sympa based mailing list** (like mailing list servers used in riseup.net)
+moderated in that way.
+
+ * A precondition for the script is that the mail listing use "Editors can send, others are moderated. (editors_or_moderated)" on "Who can send messages" from email listing configuration interface.
+
+## Create settings files ##
 
 In order to create a default settings-file execute:
 
     $ ./init.sh
 
-##Settings
+## Settings ##
 
 The settings values that need to be set on settings.json file are:
 
@@ -25,12 +36,12 @@ The settings values that need to be set on settings.json file are:
 * smtpPort (integer) - SMTP server port
 * blacklistFile (string) - Name of the text file containing emails in the black list (one email per line)
 
-##How it works
+## How it works ##
 
 The script works the like this:
 
 * It connects to SMTP server
-* With a moderator account, it sends a REVIEW message to [sympaCommandEmail]
+* Using a moderator (better owner) account, it sends a REVIEW message to [sympaCommandEmail]
 * Then it reads the response to that command requests and gets all subscribed users
 * It connects to IMAP server and logs in with a modertor account
 * Fetch unseen emails from [listContactEmail]
@@ -41,5 +52,6 @@ The script works the like this:
 ** The script leaves that message for manual moderation
 
 
-##Important note
+## Important note ##
+
 The riseup list has to send all messages for moderation.

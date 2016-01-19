@@ -62,6 +62,11 @@ class HackyMod:
                 continue
 
             print('Email has moderation code %s' % moderationCode)
+
+            ## TODO: see if received email is in 'susbscribers list', if not update subscribers list
+            ##       After update check if check if it is good user.
+            ## ...
+
             if self.__isGoodUser(senderEmail):
                 print('%s is not on the blacklist :D, distributing.\n' % senderEmail)
                 subject = 'DISTRIBUTE % s %s' % (self.listName, moderationCode)
