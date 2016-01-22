@@ -15,6 +15,8 @@ settings = {
     'smtpPort': None,
     'moderatorEmail': None,
     'moderatorPassword': None,
+    'getSubscribersMinutesInterval': 1440, # Retrieve subscribers each 24hrs
+    'moderationMinutesInterval': 15 #
 }
 
 def loadConfiguration(filename):

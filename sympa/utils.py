@@ -1,5 +1,11 @@
 import json
 
+def arrayToFile(filename, array=[]):
+    fd = open(filename, 'w')
+    for item in array:
+        fd.write(item + '\n')
+    fd.close()
+
 def getFileContent(filename, parseJson=False):
     fd = open(filename, 'r')
     content = fd.read()
@@ -10,9 +16,9 @@ def getFileContent(filename, parseJson=False):
 
     return content
 
-def __removeEOL(item):
-    item = item.replace('\n', '')
-    item = item.replace('\r', '')
+def removeEOLCharacters(item, replace=''):
+    item = item.replace('\n', replace)
+    item = item.replace('\r', replace)
 
     return item
 
@@ -22,6 +28,6 @@ def getFileLines(filename, removeEOL=False):
     fd.close()
 
     if removeEOL:
-        lines = [__removeEOL(line) for line in lines]
+        lines = [removeEOLCharacters(line) for line in lines]
 
     return lines

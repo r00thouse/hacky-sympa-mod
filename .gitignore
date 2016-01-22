@@ -2,6 +2,7 @@
 *.log
 settings.json
 subscribers.json
+subscribers.txt
 blacklist.txt
 
 *~

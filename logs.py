@@ -27,7 +27,8 @@ def initLogs(logFile, logLevel=logging.INFO, debug=False):
     logger.addHandler(handler)
 
     if not debug:
+        lgr = Logger(logger)
         # sys.stdout = MyLogger(logger, logging.INFO)
-        sys.stdout = Logger(logger)
+        sys.stdout = lgr
         # Replace stderr with logging to file at ERROR level
-        # sys.stderr = MyLogger(logger, logging.ERROR)
+        sys.stderr = lgr

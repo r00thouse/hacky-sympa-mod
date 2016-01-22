@@ -1,5 +1,5 @@
 {
-    "subscribersFile": "./subscribers.json",
+    "subscribersFile": "./subscribers.txt",
     "logFile": "./hacky.log",
     "debug": false,
     "listName": "alistnamecasesensitive",

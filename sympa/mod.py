@@ -25,10 +25,11 @@ class HackyMod:
             return results[0]
         return None
 
-    def __isUserSubscriberd(self, email):
+    def __isUserSubscribed(self, email):
         users = self.users
+        # print('Compring %s with subscribed users' % email)
         for usr in users:
-            if usr['email'] == email:
+            if usr == email:
                 return True
         return False
 
@@ -42,35 +43,36 @@ class HackyMod:
         return False
 
     def __isGoodUser(self, email):
-        return self.__isUserSubscriberd(email) and not self.__isUserInBlackList(email)
+        isSubscribed = self.__isUserSubscribed(email)
+        isInBlackList = self.__isUserInBlackList(email)
+
+        print('    [+] %s is subscribed: %s' % (email, isSubscribed))
+        print('    [+] %s is in black list: %s' % (email, isInBlackList))
+
+        return isSubscribed and not isInBlackList
 
     def moderate(self):
         emails = getEmailsFromUser(self.listContactEmail, self.moderatorEmail,
-            self.moderatorPassword, self.imapSSLServer, self.imapSSLPort)
+            self.moderatorPassword, self.imapSSLServer, self.imapSSLPort, self.listName)
 
         for email in emails:
             senderEmail = self.__parseEmailFromSubject(email['subject'])
             if not senderEmail:
-                print('Invalid email subject')
+                print('[MOD] - Invalid email subject')
                 continue
 
-            print('Moderating message from %s' % senderEmail)
+            print('[MOD] - Moderating message from %s' % senderEmail)
 
             moderationCode = getModerationData(email['content'], self.listName, senderEmail)
             if not moderationCode:
-                print('Email with invalid format')
+                print('    [+] Email with invalid format')
                 continue
 
-            print('Email has moderation code %s' % moderationCode)
-
-            ## TODO: see if received email is in 'susbscribers list', if not update subscribers list
-            ##       After update check if check if it is good user.
-            ## ...
+            print('    [+] Email has moderation code %s' % moderationCode)
 
             if self.__isGoodUser(senderEmail):
-                print('%s is not on the blacklist :D, distributing.\n' % senderEmail)
+                print('    [+] %s is a good user :D, distributing.' % senderEmail)
                 subject = 'DISTRIBUTE % s %s' % (self.listName, moderationCode)
                 # sendEmail(self.sympaDistributeEmail, subject)
             else:
-                print('%s is not a good user the message has to be moderated manually\n' % senderEmail)
-
+                print('    [-] %s is not a good user the message has to be moderated manually' % senderEmail)
