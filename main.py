@@ -39,7 +39,7 @@ def getSubscribersAsync(usersReadyCallback):
             t.start()
 
         print('[ASYNC] - Wating for next subscribed-users retrieval...')
-        time.sleep(60*10)
+        time.sleep(60*60*24)
 
 def startModeration():
     global subscribedUsers
@@ -61,7 +61,7 @@ def startModeration():
         print('[MOD] - Starting moderation')
         mod.moderate()
         # get emails, parse and moderate them every X minutes
-        time.sleep(60) # cada 2 minutos
+        time.sleep(60*10) # cada 2 minutos
 
 def main():
     loadConfiguration('./settings.json')
