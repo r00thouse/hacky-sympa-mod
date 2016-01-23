@@ -5,11 +5,14 @@ from .utils import getFileLines
 EMAIL_SIMPLE_REGEX = '[\w\.-]+@[\w\.-]+'
 
 class HackyMod:
-    def __init__(self, listName='', users=[], blacklistFile=[], listContactEmail=None,
+    def __init__(self,
+            listName='', users=[], sympaCommandEmail='',
+            blacklistFile=[], listContactEmail=None,
             moderatorEmail=None, moderatorPassword=None, imapSSLServer=None,
             imapSSLPort=993, smtpServer=None, smtpPort=0):
         self.listName = listName
         self.users = users
+        self.sympaCommandEmail = sympaCommandEmail
         self.blacklistFile = blacklistFile
         self.listContactEmail = listContactEmail
         self.moderatorEmail = moderatorEmail
@@ -74,5 +77,16 @@ class HackyMod:
                 print('    [+] %s is a good user :D, distributing.' % senderEmail)
                 subject = 'DISTRIBUTE % s %s' % (self.listName, moderationCode)
                 # sendEmail(self.sympaDistributeEmail, subject)
+                attempts = 1
+                while True:
+                    sent = sendEmail(self.sympaCommandEmail, subject,
+                        self.moderatorEmail, self.moderatorPassword,
+                        self.smtpServer, self.smtpPort)
+                    if sent:
+                        print('[MOD] - Email distributed successfully')
+                        break
+                    attempts += 1
+                    if attempts == 10:
+                        break
             else:
                 print('    [-] %s is not a good user the message has to be moderated manually' % senderEmail)

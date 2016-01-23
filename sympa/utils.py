@@ -31,3 +31,12 @@ def getFileLines(filename, removeEOL=False):
         lines = [removeEOLCharacters(line) for line in lines]
 
     return lines
+
+def hasBadKeywords(emailContent):
+    keywords = [
+        'puta', 'mierda', 'carajo', 'cerdos', 'cerdo', 'trasero',
+        'mother fuckers', 'fuck', 'bitch', 'bozal', 'bosal', 'pene', 'vagina',
+        'marica', 'maricon', 'gay', 'lesbiana', 'gordo', 'puerco', 'puercos',
+        'franchute', 'maldit', 'cojud', 'huevon', 'boludo',
+        'huev', 'shit', 'asshole'
+    ]

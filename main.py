@@ -46,6 +46,7 @@ def startModeration():
     mod = HackyMod(
         users=subscribedUsers,
         blacklistFile=settings['blacklistFile'],
+        sympaCommandEmail=settings['sympaCommandEmail'],
         listName=settings['listName'],
         listContactEmail=settings['listContactEmail'],
         moderatorEmail=settings['moderatorEmail'],

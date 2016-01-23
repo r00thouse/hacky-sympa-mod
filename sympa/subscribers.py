@@ -59,10 +59,3 @@ def getSubscribersFromEmail(**kargs):
             subscribedUsers.append(subsUser)
 
     return subscribedUsers
-
-# def foobar():
-    # getSubscribers2(listName='r00thouse', sympaCommandEmail='sympa@lists.riseup.net',
-        # listContactEmail='r00thouse-request@lists.riseup.net',
-        # moderatorEmail='roggs@openmailbox.org', moderatorPassword='5rogggggs50',
-        # imapServer='imap.openmailbox.org', imapPort=993,
-        # smtpServer='smtp.openmailbox.org', smtpPort=587)
